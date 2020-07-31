@@ -7,9 +7,10 @@ import { HelloComponent } from './hello.component';
 import { TestComponent } from './test.component';
 import { TabsModule } from './tabs/tabs.module';
 import { TabModule } from './tabs/tab-component/tab.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, TabModule, TabsModule ],
+  imports:      [ BrowserModule, FormsModule, TabModule, TabsModule, CommonModule ],
   declarations: [ AppComponent, HelloComponent, TestComponent ],
   bootstrap:    [ AppComponent ]
 })

@@ -14,7 +14,7 @@ export default class TabComponent implements OnInit, OnDestroy{
 
   constructor(private activeTabService: ActiveTabService, private cdr: ChangeDetectorRef){  }
 
-  isActive: boolean = false;
+  isActiveTab: boolean = false;
   idNumber: number;
 
   activeIndexSubscription : Subscription;
@@ -25,7 +25,7 @@ export default class TabComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
    this.activeIndexSubscription = this.activeTabService.activeIndex$.subscribe((activeIndex => {
-      this.isActive = activeIndex === this.idNumber;
+      this.isActiveTab = activeIndex === this.idNumber;
       this.cdr.detectChanges();
     }))
   }

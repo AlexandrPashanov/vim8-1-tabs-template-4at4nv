@@ -5,7 +5,9 @@ import {
   Component,
   ContentChildren, OnDestroy,
   OnInit,
-  QueryList
+  QueryList,
+ViewChild,
+TemplateRef
 } from '@angular/core';
 import TabComponent from '../tab-component/tab.component';
 import {ActiveTabService} from '../../service/active-tab.service';
@@ -13,7 +15,7 @@ import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'tabs',
-    template: `<ng-content></ng-content>`,
+    templateUrl: 'tabs.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class TabsComponent implements AfterContentInit, OnInit, OnDestroy{

@@ -1,6 +1,5 @@
-<div (click)="click()" class="tabs__title" [ngClass]="{'tabs__title--active': isActive}">
+<div (click)="click()" class="tabs__titles tabs__title" [ngClass]="{'tabs__title--active': isActiveTab}">
   <ng-content select="tab-title"></ng-content>
 </div>
-<ng-content *ngIf="isActive" select="tab-content"></ng-content>
 
-
+<ng-content *ngIf="isActiveTab" select="tab-content"></ng-content>
