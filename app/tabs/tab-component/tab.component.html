@@ -2,4 +2,7 @@
   <ng-content select="tab-title"></ng-content>
 </div>
 
-<ng-content *ngIf="isActiveTab" select="tab-content"></ng-content>
+<ng-template #tabContentTemplate>
+  <ng-content select="tab-content"></ng-content>
+</ng-template>
+
