@@ -1,19 +1,38 @@
-import { Component, Input, ContentChildren, AfterContentInit, TemplateRef, QueryList } from '@angular/core';
-import TabContentComponent from './tab-elements/tab-content.component';
-      
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef,
+  Component, OnDestroy, OnInit
+} from '@angular/core';
+import {ActiveTabService} from '../../service/active-tab.service';
+import {Subscription} from 'rxjs';
+
 @Component({
-    selector: 'tab',
-    templateUrl: `tab.component.html`
+  selector: 'tab',
+  templateUrl: `tab.component.html`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export default class TabComponent  implements AfterContentInit { 
+export default class TabComponent implements OnInit, OnDestroy{
 
- @ContentChildren(TabContentComponent, {read: TemplateRef})
- componentsList: QueryList<TemplateRef>;
- selectedComponent: TemplateRef;
+  constructor(private activeTabService: ActiveTabService, private cdr: ChangeDetectorRef){  }
 
- ngAfterContentInit() {
-   console.log(this.componentsList);
-   this.selectedComponent = this.componentsList[0];
-   console.log(this.selectedComponent, this.componentsList);
- }
+  isActive: boolean = false;
+  idNumber: number;
+
+  activeIndexSubscription : Subscription;
+
+  click() {
+    this.activeTabService.setCurrentActiveIndex(this.idNumber);
+  }
+
+  ngOnInit(): void {
+   this.activeIndexSubscription = this.activeTabService.activeIndex$.subscribe((activeIndex => {
+      this.isActive = activeIndex === this.idNumber;
+      this.cdr.detectChanges();
+    }))
+  }
+
+  ngOnDestroy(): void {
+    if (this.activeIndexSubscription) {
+      this.activeIndexSubscription.unsubscribe();
+    }
+  }
 }

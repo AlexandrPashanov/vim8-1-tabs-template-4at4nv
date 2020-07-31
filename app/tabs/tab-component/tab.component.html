@@ -1,5 +1,6 @@
-<ng-content select="tab-title"></ng-content>
-<ng-content select="tab-content"></ng-content>
-<ng-template #componentContent let-content="componentRef">
-  
-</ng-template>
+<div (click)="click()" class="tabs__title" [ngClass]="{'tabs__title--active': isActive}">
+  <ng-content select="tab-title"></ng-content>
+</div>
+<ng-content *ngIf="isActive" select="tab-content"></ng-content>
+
+
