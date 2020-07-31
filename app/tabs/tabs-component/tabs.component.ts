@@ -6,13 +6,11 @@ import {
   ContentChildren, OnDestroy,
   OnInit,
   QueryList,
-  ViewChild,
-  TemplateRef, ContentChild
+  TemplateRef
 } from '@angular/core';
 import TabComponent from '../tab-component/tab.component';
 import {ActiveTabService} from '../../service/active-tab.service';
 import {Subscription} from 'rxjs';
-import TabTitleComponent from '../tab-component/tab-elements/tab-title.component';
 import TabContentComponent from '../tab-component/tab-elements/tab-content.component';
 
 @Component({
@@ -33,6 +31,9 @@ export default class TabsComponent implements AfterContentInit, OnInit, OnDestro
       if (this.tabsListArray.length > 0) {
         this.currentComponentTemplate = this.tabsListArray[this.currentActiveId].tabContent;
         this.cdr.detectChanges();
+      } else if (this.tabsListArray.length === 0) {
+        this.currentComponentTemplate = undefined;
+        this.currentActiveId = 0;
       }
     }));
   }
@@ -46,7 +47,7 @@ export default class TabsComponent implements AfterContentInit, OnInit, OnDestro
       this.tabsListArray = tabs.toArray();
       this.setTabs();
       const checkIndex = this.tabsListArray ? this.tabsListArray.length - 1 : 0;
-      if (this.currentActiveId > checkIndex) {
+      if (this.currentActiveId >= checkIndex) {
         this.activeTabService.setCurrentActiveIndex(checkIndex);
       }
       this.cdr.detectChanges();
